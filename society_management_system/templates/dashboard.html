@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Dashboard - Society Management System{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom">
+  <div>
+    <h3 class="fw-bold mb-0">Admin & Committee Dashboard</h3>
+    <small class="text-muted">Real-time statistics queried from MySQL database</small>
+  </div>
+</div>
+
+<!-- Summary Cards -->
+<div class="row g-3 mb-4">
+  <div class="col-sm-6 col-lg-3">
+    <div class="card shadow-sm border-0 h-100">
+      <div class="card-body">
+        <h6 class="text-muted mb-1 small fw-semibold">Total Members</h6>
+        <h3 class="fw-bold mb-0 text-primary">{{ total_members }}</h3>
+        <small class="text-muted">Registered Residents</small>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-6 col-lg-3">
+    <div class="card shadow-sm border-0 h-100">
+      <div class="card-body">
+        <h6 class="text-muted mb-1 small fw-semibold">Total Apartments</h6>
+        <h3 class="fw-bold mb-0 text-dark">{{ total_flats }}</h3>
+        <small class="text-muted">Wings A & B</small>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-6 col-lg-3">
+    <div class="card shadow-sm border-0 h-100">
+      <div class="card-body">
+        <h6 class="text-muted mb-1 small fw-semibold">Total Collected</h6>
+        <h3 class="fw-bold mb-0 text-success">₹{{ "{:,.2f}".format(total_collected) }}</h3>
+        <small class="text-muted">Maintenance Ledger</small>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-6 col-lg-3">
+    <div class="card shadow-sm border-0 h-100">
+      <div class="card-body">
+        <h6 class="text-muted mb-1 small fw-semibold">Pending Dues</h6>
+        <h3 class="fw-bold mb-0 text-danger">₹{{ "{:,.2f}".format(total_pending) }}</h3>
+        <small class="text-muted">Unpaid Balances</small>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Recent Feeds -->
+<div class="row g-4">
+  <!-- Recent Complaints -->
+  <div class="col-lg-6">
+    <div class="card shadow-sm border-0 h-100">
+      <div class="card-header bg-white fw-bold py-3">Recent Complaints</div>
+      <div class="card-body p-0">
+        <ul class="list-group list-group-flush">
+          {% for c in recent_complaints %}
+          <li class="list-group-item p-3">
+            <div class="d-flex justify-content-between align-items-center mb-1">
+              <strong class="small">{{ c.title }}</strong>
+              <span class="badge bg-{% if c.status == 'Resolved' %}success{% elif c.status == 'In Progress' %}warning text-dark{% else %}danger{% endif %}">
+                {{ c.status }}
+              </span>
+            </div>
+            <p class="text-muted small mb-1">{{ c.description|truncate(80) }}</p>
+            <small class="text-muted">By {{ c.member_name }} on {{ c.created_date }}</small>
+          </li>
+          {% else %}
+          <li class="list-group-item p-3 text-muted text-center small">No complaints registered.</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent Visitors -->
+  <div class="col-lg-6">
+    <div class="card shadow-sm border-0 h-100">
+      <div class="card-header bg-white fw-bold py-3">Security Gate Visitors</div>
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table table-hover align-middle mb-0 small">
+            <thead class="table-light">
+              <tr>
+                <th>Visitor</th>
+                <th>Flat</th>
+                <th>Purpose</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for v in recent_visitors %}
+              <tr>
+                <td><strong>{{ v.visitor_name }}</strong></td>
+                <td>Flat {{ v.block }}-{{ v.flat_no }}</td>
+                <td>{{ v.purpose }}</td>
+                <td>
+                  {% if not v.exit_time %}
+                    <span class="badge bg-primary">Inside</span>
+                  {% else %}
+                    <span class="badge bg-secondary">Exited</span>
+                  {% endif %}
+                </td>
+              </tr>
+              {% else %}
+              <tr>
+                <td colspan="4" class="text-muted text-center py-3">No visitors recorded.</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

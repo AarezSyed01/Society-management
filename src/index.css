@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+/* Basic, clean styling like a student BCA project built with Bootstrap 5 */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background-color: #f4f6f9;
+  color: #212529;
+  margin: 0;
+  padding: 0;
+}
+
+/* Classic Bootstrap-style button utilities if needed */
+.btn-student-primary {
+  background-color: #0d6efd;
+  color: #ffffff;
+  border: 1px solid #0d6efd;
+}
+.btn-student-primary:hover {
+  background-color: #0b5ed7;
+  border-color: #0a58ca;
+}
+
+/* Clean standard card */
+.student-card {
+  background: #ffffff;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+}
+
+/* Classic table look */
+table {
+  border-collapse: collapse;
+}

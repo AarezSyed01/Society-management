@@ -1,0 +1,18 @@
+/* Custom styles for Society Management System */
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: #1e293b;
+}
+
+.navbar-brand {
+  font-size: 1.1rem;
+  letter-spacing: -0.02em;
+}
+
+.card {
+  border-radius: 6px;
+}
+
+.badge {
+  font-weight: 600;
+}

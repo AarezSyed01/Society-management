@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}Resident Registration - Society Management System{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <div class="card shadow-sm border-0">
+      <div class="card-header bg-primary text-white text-center py-3">
+        <h4 class="mb-0 fw-bold">New Resident Registration</h4>
+        <small>Create an account to access society dues, complaints, and notices</small>
+      </div>
+      <div class="card-body p-4">
+        <form method="POST" action="{{ url_for('auth.register') }}">
+          <div class="mb-3">
+            <label for="name" class="form-label fw-semibold">Full Legal Name *</label>
+            <input type="text" class="form-control" id="name" name="name" required placeholder="e.g., Rohit Patil">
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label for="email" class="form-label fw-semibold">Email Address *</label>
+              <input type="email" class="form-control" id="email" name="email" required placeholder="user@domain.com">
+            </div>
+            <div class="col-md-6">
+              <label for="phone" class="form-label fw-semibold">Mobile Number *</label>
+              <input type="tel" class="form-control" id="phone" name="phone" required placeholder="+91 98200 00000">
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="flat_id" class="form-label fw-semibold">Select Apartment / Flat *</label>
+            <select class="form-select" id="flat_id" name="flat_id" required>
+              <option value="">-- Choose Flat --</option>
+              {% for f in flats %}
+                <option value="{{ f.flat_id }}">Flat {{ f.block }}-{{ f.flat_no }} (Floor {{ f.floor }}, {{ f.type }})</option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label for="password" class="form-label fw-semibold">Password *</label>
+              <input type="password" class="form-control" id="password" name="password" required minlength="6" placeholder="Min 6 characters">
+            </div>
+            <div class="col-md-6">
+              <label for="confirm_password" class="form-label fw-semibold">Confirm Password *</label>
+              <input type="password" class="form-control" id="confirm_password" name="confirm_password" required placeholder="Re-enter password">
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary w-100 py-2 fw-semibold">Create Account</button>
+        </form>
+
+        <div class="mt-4 pt-3 border-top text-center small text-muted">
+          Already registered? <a href="{{ url_for('auth.login') }}" class="text-primary fw-semibold">Sign In</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

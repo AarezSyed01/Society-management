@@ -1,0 +1,6 @@
+{
+  "name": "Society Management System",
+  "description": "Centralized residential society management web application for members, flats, maintenance billing, complaints, notices, and visitors.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
